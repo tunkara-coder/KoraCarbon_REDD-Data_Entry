@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Transparency & Data Management Platform for the Conservation and Restoration of the Mangrove Ecosystem in The Gambia through the REDD+ Mechanism" />
+    <meta name="keywords" content="REDD+, Gambia, Mangrove, Conservation, Carbon Credits, Transparency, Blockchain, Community" />
+    <title>CONSERVATION AND RESTORATION OF THE MANGROVE ECOSYSTEM IN THE GAMBIA THROUGH THE REDD+ MECHANISM - Transparency & Data Management Platform</title>
+    
+    <!-- Preload important resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+      /* Critical CSS for initial loading */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        background-color: #f8fafc;
+        color: #334155;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      #root {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Loading animation */
+      .loading-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        color: white;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.3);
+        border-top: 4px solid white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .loading-text {
+        font-size: 1.2rem;
+        font-weight: 600;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Ensure no FOUC (Flash of Unstyled Content) */
+      [data-reactroot] { 
+        display: none !important; 
+      }
+
+      .js-loaded [data-reactroot] { 
+        display: block !important; 
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Loading screen that shows until React app loads -->
+    <div id="loading">
+      <div class="loading-container">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Loading REDD+ Gambia Platform...</div>
+        <div style="font-size: 0.9rem; opacity: 0.8;">Transparency & Data Management System</div>
+      </div>
+    </div>
+
+    <!-- Main app container -->
+    <div id="root">
+      <!-- React app will be mounted here -->
+    </div>
+
+    <script>
+      // Enhanced loading handler
+      window.addEventListener('DOMContentLoaded', function() {
+        // Check if we're running on a server or file system
+        const isFileProtocol = window.location.protocol === 'file:';
+        
+        if (isFileProtocol) {
+          // Show warning if trying to run from file system
+          const loadingElement = document.getElementById('loading');
+          if (loadingElement) {
+            loadingElement.innerHTML = `
+              <div class="loading-container" style="text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                <div class="loading-text" style="color: #fef3c7;">Development Server Required</div>
+                <p style="margin-bottom: 1.5rem; max-width: 400px; line-height: 1.5;">
+                  This React application cannot run directly from the file system.<br>
+                  Please use the development server.
+                </p>
+                <div style="background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; text-align: left; max-width: 400px;">
+                  <strong>To run this application:</strong>
+                  <ol style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                    <li>Open terminal in this folder</li>
+                    <li>Run: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.4rem; border-radius: 4px;">npm install</code></li>
+                    <li>Run: <code style="background: rgba(0,0,0,0.3); padding: 0.2rem 0.4rem; border-radius: 4px;">npm run dev</code></li>
+                    <li>Open the provided URL in your browser</li>
+                  </ol>
+                </div>
+              </div>
+            `;
+          }
+          return;
+        }
+
+        // Normal loading flow for server
+        const hideLoading = function() {
+          const loadingElement = document.getElementById('loading');
+          if (loadingElement) {
+            loadingElement.style.display = 'none';
+          }
+          document.body.classList.add('js-loaded');
+        };
+
+        // Try to hide loading when React mounts
+        window.addEventListener('load', function() {
+          setTimeout(hideLoading, 1000);
+        });
+
+        // Fallback: hide loading after 5 seconds max
+        setTimeout(hideLoading, 5000);
+      });
+    </script>
+
+    <!-- React app entry point - This will be handled by Vite -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
